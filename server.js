@@ -10,6 +10,11 @@ var bodyParser = require('body-parser');
 
 // user model from user.js
 var User = require('./models/user.js');
+// load configuration:
+var config = require('./config/config.js');
+// configure the connection to db:
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://'+config.mongo.host+ ":"+config.mongo.port+"/"+config.mongo.database,config.mongo);
 
 
 // configure app to use bodyParser()
@@ -17,7 +22,7 @@ var User = require('./models/user.js');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8080;        // set our port
+var port = process.env.PORT || config.nodejs.port;        // set our port
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -33,18 +38,28 @@ router.get('/', function(req, res) {
 router.route('/users')
 
 	.put(function(req,res){
-		var user = new User();
-		user = req.body;
+		var user = new User(req.body);
+		//user.userId = req.body.userId;
+		//user.answers = req.body.answers;
 		console.log("User values: "+user.userId);
+		//try to save the user:
+		user.save(function (err){
+			if(err){
+				res.send(err);
+			}else{
+				res.json({message:"User created"});
+			}
+		})
+		
 		// show json  request:
-		console.log("Request: "+JSON.stringify(req.body));
+		console.log("Request: "+JSON.stringify(user));
 		
 		
 		
 		//save the user:
 		
 		//sned back a response:
-		res.json({message:'Call ok'});
+		//res.json({message:'Call ok'});
 		
 	});
 
