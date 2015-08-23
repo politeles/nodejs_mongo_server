@@ -17,10 +17,18 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://'+config.mongo.host+ ":"+config.mongo.port+"/"+config.mongo.database,config.mongo);
 
 
+//enable Cross Origin Resource Sharing
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 
 var port = process.env.PORT || config.nodejs.port;        // set our port
 
@@ -38,6 +46,7 @@ router.get('/', function(req, res) {
 router.route('/users')
 
 	.put(function(req,res){
+		console.log("Request data:"+req);
 		var user = new User(req.body);
 		//user.userId = req.body.userId;
 		//user.answers = req.body.answers;
