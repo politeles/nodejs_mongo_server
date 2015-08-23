@@ -53,5 +53,4 @@ var config = {};
 	  });
 
 ```
-
 Check out my [blog](http://jpons.es/2015/08/26/problems-when-…avascript-cors/ ) to see the problems with the CORS standard.
