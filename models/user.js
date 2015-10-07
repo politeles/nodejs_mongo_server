@@ -11,7 +11,7 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var UserSchema   = new Schema({
-    userId: Number,
+    idUser: Number,
 	answers:[{
 		testNo: Number,
 		answerNo: Number,

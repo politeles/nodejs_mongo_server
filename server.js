@@ -46,17 +46,18 @@ router.get('/', function(req, res) {
 router.route('/users')
 
 	.put(function(req,res){
-		console.log("Request data:"+req);
+		console.log("Request data:"+req.body);
 		var user = new User(req.body);
 		//user.userId = req.body.userId;
 		//user.answers = req.body.answers;
-		console.log("User values: "+user.userId);
+		console.log("User values: "+JSON.stringify(user.idUser));
 		//try to save the user:
 		user.save(function (err){
 			if(err){
-				res.send(err);
+				//res.send(err);
+				res.json({message:"0",userId:req.body.idUser});//failed
 			}else{
-				res.json({message:"User created"});
+				res.json({message:"1",userId:req.body.idUser}); //success
 			}
 		})
 		
