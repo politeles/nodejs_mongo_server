@@ -47,22 +47,61 @@ router.route('/users')
 
 	.put(function(req,res){
 		console.log("Request data:"+req.body);
-		var user = new User(req.body);
+		
+		//try to convert to User object:
+		try{
+			
+			var user = new User(req.body);
+			console.log("Finding users with id:"+user.idUser);
+			//try to find out the user:
+			User
+			.count({
+				idUser: user.idUser
+				})
+				.exec(
+					function(error,results){
+					if(error ==null && results!=null){
+						// query ok:
+						// get the first element of results and update it.
+						console.log("Users: "+results);
+						if(results == 0 ){
+							console.log("no results");
+								user.save(function (err){
+								if(err){
+									//res.send(err);
+									res.json({code:"0",userId:req.body.idUser,message:"User can't be saved"});//failed
+								}else{
+									res.json({code:"1",userId:req.body.idUser,message:"Success"}); //success
+								}
+								});
+						}else{
+							console.log("user exist");
+							res.json({code:"0",userId:req.body.idUser,message:"User already on db"});//duplicate
+						}
+					}else{
+						console.log("user exist..");
+						res.json({code:"0",userId:req.body.idUser,message:"Error"});//error
+					}
+					
+					
+					
+				});
+			
+			
 		//user.userId = req.body.userId;
 		//user.answers = req.body.answers;
 		console.log("User values: "+JSON.stringify(user.idUser));
 		//try to save the user:
-		user.save(function (err){
-			if(err){
-				//res.send(err);
-				res.json({message:"0",userId:req.body.idUser});//failed
-			}else{
-				res.json({message:"1",userId:req.body.idUser}); //success
-			}
-		})
+	
+			
+			
+		}catch(error){
+			res.json({code:"0",message:"Error: "+error.message});
+		}
+		
 		
 		// show json  request:
-		console.log("Request: "+JSON.stringify(user));
+		//console.log("Request: "+JSON.stringify(user));
 		
 		
 		
