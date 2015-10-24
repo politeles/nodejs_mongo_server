@@ -5,6 +5,7 @@
 
 // call the packages we need
 var express    = require('express');        // call express
+var nodeExcel = require('excel-export');    // call excel export
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 
@@ -111,6 +112,114 @@ router.route('/users')
 		//res.json({message:'Call ok'});
 		
 	});
+	
+	// route for processing all users to generate excel file:
+	router.route('/process')
+
+	.get(function(req,res){
+		 var conf ={};
+	// 	 1 step:
+	// retrieve all users from db:
+	//Array of rows:
+	var rowArray = [];
+	var colArray = [];
+	var colCompleted = false;
+	colArray.push({caption:'Codigo',type:'number'});
+		User.find({},function(err,users){
+		//	console.log("All users:"+JSON.stringify(users));
+			if(err==null && users!=null){
+			users.forEach(function(user){
+				var rA = [];
+				
+				
+				rA.push(user.idUser);
+				
+				console.log("Id user: "+user.idUser);
+				user.answers.forEach(
+					function(ans){
+					console.log("Answer: "+ans.answerValue);
+					rA.push(ans.answerValue);
+					
+					if(!colCompleted){
+						
+						var captionValue = "Test: "+ans.testNo+ "Answer: "+ans.answerNo;
+						colArray.push({caption:captionValue,type:'text'});
+					}
+					
+				});
+				
+				rowArray.push(rA);
+				colCompleted = true;
+				
+			});
+			}
+			
+			
+			console.log("Showing content");
+		 //show row array:
+		 rowArray.forEach(function(element){
+				element.forEach(function(item){
+					console.log("item: "+item);
+				});
+				
+				console.log("showing cols:");
+				
+				colArray.forEach(function(item){
+					console.log("Label: "+JSON.stringify(item));
+				});
+				
+				
+			
+		 });
+		 
+		  //  conf.stylesXmlFile = "styles.xml";
+    conf.cols = colArray;
+	
+	
+	/*[{
+        caption:'Codigo',
+        type:'number',
+        width:28.7109375
+    },{
+        caption:'resultados tes1',
+        type:'number',
+        
+    },{
+        caption:'bool',
+        type:'bool'
+    },{
+        caption:'number',
+         type:'number'              
+    }];
+	*/
+    conf.rows = rowArray;
+	/*
+	[
+        ['pi', new Date(Date.UTC(2013, 4, 1)), true, 3.14],
+        ["e", new Date(2012, 4, 1), false, 2.7182],
+        ["M&M<>'", new Date(Date.UTC(2013, 6, 9)), false, 1.61803],
+        ["null date", null, true, 1.414]  
+    ];
+	*/
+    var result = nodeExcel.execute(conf);
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats');
+    res.setHeader("Content-Disposition", "attachment; filename=" + "Report.xlsx");
+    res.end(result, 'binary');
+		 
+		 
+		 
+		 });
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+ 
+	});
+	
+	
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
