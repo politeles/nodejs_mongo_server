@@ -122,9 +122,127 @@ router.route('/users')
 	// retrieve all users from db:
 	//Array of rows:
 	var rowArray = [];
-	var colArray = [];
-	var colCompleted = false;
-	colArray.push({caption:'Codigo',type:'number'});
+	var colArray = [
+		{caption:"Codigo",type:"number",key:"code"},
+		{caption:"Test 1 - item 1",type:"text",key:"3-1"},
+		{caption:"Test 1 - item 2",type:"text",key:"3-2"},
+		{caption:"Test 1 - item 3",type:"text",key:"3-3"},
+		{caption:"Test 1 - item 4",type:"text",key:"3-4"},
+		{caption:"Test 1 - item 5",type:"text",key:"3-5"},
+		{caption:"Test 1 - item 6",type:"text",key:"3-6"},
+		{caption:"Test 1 - item 7",type:"text",key:"3-7"},
+		{caption:"Test 1 - item 8",type:"text",key:"3-8"},
+		{caption:"Test 1 - item 9",type:"text",key:"3-9"},
+		{caption:"Test 1 - item 10",type:"text",key:"3-10"},
+		{caption:"Test 1 - item 11",type:"text",key:"3-11"},
+		{caption:"Test 1 - item 12",type:"text",key:"3-12"},
+		{caption:"Test 1 - item 13",type:"text",key:"3-13"},
+		{caption:"Test 1 - item 14",type:"text",key:"3-14"},
+		{caption:"Test 2 - item 1",type:"text",key:"2-1"},
+		{caption:"Test 2 - item 2",type:"text",key:"2-2"},
+		{caption:"Test 2 - item 3",type:"text",key:"2-3"},
+		{caption:"Test 2 - item 4",type:"text",key:"2-4"},
+		{caption:"Test 2 - item 5",type:"text",key:"2-5"},
+		{caption:"Test 2 - item 6",type:"text",key:"2-6"},
+		{caption:"Test 2 - item 7",type:"text",key:"2-7"},
+		{caption:"Test 2 - item 8",type:"text",key:"2-8"},
+		{caption:"Test 2 - item 9",type:"text",key:"2-9"},
+		{caption:"Test 2 - item 10",type:"text",key:"2-10"},
+		{caption:"Test 2 - item 11",type:"text",key:"2-11"},
+		{caption:"Test 2 - item 12",type:"text",key:"2-12"},
+		{caption:"Test 2 - item 13",type:"text",key:"2-13"},
+		{caption:"Test 2 - item 14",type:"text",key:"2-14"},
+		{caption:"Test 2 - item 15",type:"text",key:"2-15"},
+		{caption:"Test 2 - item 16",type:"text",key:"2-16"},
+		{caption:"Test 2 - item 17",type:"text",key:"2-17"},
+		{caption:"Test 2 - item 18",type:"text",key:"2-18"},
+		{caption:"Test 2 - item 19",type:"text",key:"2-19"},
+		{caption:"Test 2 - item 20",type:"text",key:"2-20"},
+		{caption:"Test 2 - item 21",type:"text",key:"2-21"},
+		{caption:"Test 2 - item 22",type:"text",key:"2-22"},
+		{caption:"Test 2 - item 23",type:"text",key:"2-23"},
+		{caption:"Test 2 - item 24",type:"text",key:"2-24"},
+		{caption:"Test 2 - item 25",type:"text",key:"2-25"},
+		{caption:"Test 2 - item 26",type:"text",key:"2-26"},
+		{caption:"Test 2 - item 27",type:"text",key:"2-27"},
+		{caption:"Test 2 - item 28",type:"text",key:"2-28"},
+		{caption:"Test 2 - item 29",type:"text",key:"2-29"},
+		{caption:"Test 2 - item 30",type:"text",key:"2-30"},
+		{caption:"Test 2 - item 31",type:"text",key:"2-31"},
+		{caption:"Test 3 - item 1",type:"text",key:"1-1"},
+		{caption:"Test 3 - item 2",type:"text",key:"1-2"},
+		{caption:"Test 3 - item 3",type:"text",key:"1-3"},
+		{caption:"Test 3 - item 4",type:"text",key:"1-4"},
+		{caption:"Test 3 - item 5",type:"text",key:"1-5"},
+		{caption:"Test 3 - item 6",type:"text",key:"1-6"},
+		{caption:"Test 3 - item 7",type:"text",key:"1-7"},
+		{caption:"Test 3 - item 8",type:"text",key:"1-8"},
+		{caption:"Test 3 - item 9",type:"text",key:"1-9"},
+		{caption:"Test 3 - item 10",type:"text",key:"1-10"},
+		{caption:"Test 3 - item 11",type:"text",key:"1-11"},
+		{caption:"Test 3 - item 12",type:"text",key:"1-12"},
+		{caption:"Test 3 - item 13",type:"text",key:"1-13"},
+		{caption:"Test 3 - item 14",type:"text",key:"1-14"},
+		{caption:"Test 3 - item 15",type:"text",key:"1-15"},
+		{caption:"Test 3 - item 16",type:"text",key:"1-16"},
+		{caption:"Test 3 - item 17",type:"text",key:"1-17"},
+		{caption:"Test 3 - item 18",type:"text",key:"1-18"},
+		{caption:"Test 3 - item 19",type:"text",key:"1-19"},
+		{caption:"Test 3 - item 20",type:"text",key:"1-20"},
+		{caption:"Test 3 - item 21",type:"text",key:"1-21"},
+		{caption:"Test 3 - item 22",type:"text",key:"1-22"},
+		{caption:"Test 3 - item 23",type:"text",key:"1-23"},
+		{caption:"Test 3 - item 24",type:"text",key:"1-24"},
+		{caption:"Test 3 - item 25",type:"text",key:"1-25"},
+		{caption:"Test 3 - item 26",type:"text",key:"1-26"},
+		{caption:"Test 3 - item 27",type:"text",key:"1-27"},
+		{caption:"Test 3 - item 28",type:"text",key:"1-28"},
+		{caption:"Test 3 - item 29",type:"text",key:"1-29"},
+		{caption:"Test 3 - item 30",type:"text",key:"1-30"},
+		{caption:"Test 3 - item 31",type:"text",key:"1-31"},
+		{caption:"Test 3 - item 32",type:"text",key:"1-32"},
+		{caption:"Test 3 - item 33",type:"text",key:"1-33"},		
+		{caption:"Test de los ojos - item 1",type:"text",key:"4-1"},
+		{caption:"Test de los ojos - item 2",type:"text",key:"4-2"},
+		{caption:"Test de los ojos - item 3",type:"text",key:"4-3"},
+		{caption:"Test de los ojos - item 4",type:"text",key:"4-4"},
+		{caption:"Test de los ojos - item 5",type:"text",key:"4-5"},
+		{caption:"Test de los ojos - item 6",type:"text",key:"4-6"},
+		{caption:"Test de los ojos - item 7",type:"text",key:"4-7"},
+		{caption:"Test de los ojos - item 8",type:"text",key:"4-8"},
+		{caption:"Test de los ojos - item 9",type:"text",key:"4-9"},
+		{caption:"Test de los ojos - item 10",type:"text",key:"4-10"},
+		{caption:"Test de los ojos - item 11",type:"text",key:"4-11"},
+		{caption:"Test de los ojos - item 12",type:"text",key:"4-12"},
+		{caption:"Test de los ojos - item 13",type:"text",key:"4-13"},
+		{caption:"Test de los ojos - item 14",type:"text",key:"4-14"},
+		{caption:"Test de los ojos - item 15",type:"text",key:"4-15"},
+		{caption:"Test de los ojos - item 16",type:"text",key:"4-16"},
+		{caption:"Test de los ojos - item 17",type:"text",key:"4-17"},
+		{caption:"Test de los ojos - item 18",type:"text",key:"4-18"},
+		{caption:"Test de los ojos - item 19",type:"text",key:"4-19"},
+		{caption:"Test de los ojos - item 20",type:"text",key:"4-20"},
+		{caption:"Test de los ojos - item 21",type:"text",key:"4-21"},
+		{caption:"Test de los ojos - item 22",type:"text",key:"4-22"},
+		{caption:"Test de los ojos - item 23",type:"text",key:"4-23"},
+		{caption:"Test de los ojos - item 24",type:"text",key:"4-24"},
+		{caption:"Test de los ojos - item 25",type:"text",key:"4-25"},
+		{caption:"Test de los ojos - item 26",type:"text",key:"4-26"},
+		{caption:"Test de los ojos - item 27",type:"text",key:"4-27"},
+		{caption:"Test de los ojos - item 28",type:"text",key:"4-28"},
+		{caption:"Test de los ojos - item 29",type:"text",key:"4-29"},
+		{caption:"Test de los ojos - item 30",type:"text",key:"4-30"},
+		{caption:"Test de los ojos - item 31",type:"text",key:"4-31"},
+		{caption:"Test de los ojos - item 32",type:"text",key:"4-32"},
+		{caption:"Test de los ojos - item 33",type:"text",key:"4-33"},
+		{caption:"Test de los ojos - item 34",type:"text",key:"4-34"},
+		{caption:"Test de los ojos - item 35",type:"text",key:"4-35"},
+		{caption:"Test de los ojos - item 36",type:"text",key:"4-36"},
+		{caption:"Test de los ojos - item 37",type:"text",key:"4-37"}
+	
+	];
+	//var colCompleted = false;
+	//colArray.push({caption:'Codigo',type:'number'});
 		User.find({},function(err,users){
 		//	console.log("All users:"+JSON.stringify(users));
 			if(err==null && users!=null){
@@ -134,28 +252,61 @@ router.route('/users')
 				
 				rA.push(user.idUser);
 				
-				console.log("Id user: "+user.idUser);
-				user.answers.forEach(
+				//console.log("Id user: "+user.idUser);
+				
+				var dic = {};
+				
+					user.answers.forEach(
 					function(ans){
-					console.log("Answer: "+ans.answerValue);
-					rA.push(ans.answerValue);
+					//console.log("Answer: "+ans.answerValue);
 					
-					if(!colCompleted){
+					if(ans!=null && typeof ans.answerValue != 'undefined'){
+							dic[ans.testNo.toString()+"-"+ans.answerNo.toString()] = ans.answerValue;
+					}
+					
+					console.log("Key: "+ans.testNo.toString()+"-"+ans.answerNo.toString());
+					//rA.push(ans.answerValue);
+					
+					/*if(!colCompleted){
 						
 						var captionValue = "Test: "+ans.testNo+ "Answer: "+ans.answerNo;
-						colArray.push({caption:captionValue,type:'text'});
-					}
+					//	colArray.push({caption:captionValue,type:'text'});
+					}*/
 					
 				});
 				
-				rowArray.push(rA);
-				colCompleted = true;
 				
-			});
-			}
+			//	colCompleted = true;
+				
 			
+				
+				
+				
+				colArray.forEach(
+					function(colItem){
+						var storedVal = "";
+						storedVal = dic[colItem.key];
+						rA.push(storedVal);
+						if(dic[colItem.key]!=null&& typeof dic[colItem.key] !='undefined'){
+							
+							console.log("key: "+colItem.key+" value: "+storedVal);
+							
+						}
+						
+						
+						
+					
+					
+					});
+					
+					console.log("Vector rA: ");
+					//before push the array:
+					rA.forEach(function(item){
+						console.log("Item: "+item)
+					});
+			rowArray.push(rA);
 			
-			console.log("Showing content");
+	/*		console.log("Showing content");
 		 //show row array:
 		 rowArray.forEach(function(element){
 				element.forEach(function(item){
@@ -168,7 +319,7 @@ router.route('/users')
 					console.log("Label: "+JSON.stringify(item));
 				});
 				
-				
+				*/
 			
 		 });
 		 
@@ -208,6 +359,8 @@ router.route('/users')
 		 
 		 
 		 
+			}
+		 
 		 });
 		 
 		 
@@ -218,6 +371,8 @@ router.route('/users')
 		 
  
 	});
+	
+		
 	
 	
 
