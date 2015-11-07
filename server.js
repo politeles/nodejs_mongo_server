@@ -138,6 +138,7 @@ router.route('/users')
 		{caption:"Test 1 - item 12",type:"text",key:"3-12"},
 		{caption:"Test 1 - item 13",type:"text",key:"3-13"},
 		{caption:"Test 1 - item 14",type:"text",key:"3-14"},
+		{caption:"Test 1 - item 15",type:"text",key:"3-15"},
 		{caption:"Test 2 - item 1",type:"text",key:"2-1"},
 		{caption:"Test 2 - item 2",type:"text",key:"2-2"},
 		{caption:"Test 2 - item 3",type:"text",key:"2-3"},
@@ -201,7 +202,8 @@ router.route('/users')
 		{caption:"Test 3 - item 30",type:"text",key:"1-30"},
 		{caption:"Test 3 - item 31",type:"text",key:"1-31"},
 		{caption:"Test 3 - item 32",type:"text",key:"1-32"},
-		{caption:"Test 3 - item 33",type:"text",key:"1-33"},		
+		{caption:"Test 3 - item 33",type:"text",key:"1-33"},	
+		{caption:"Test de los ojos - item 0",type:"text",key:"4-0"},	
 		{caption:"Test de los ojos - item 1",type:"text",key:"4-1"},
 		{caption:"Test de los ojos - item 2",type:"text",key:"4-2"},
 		{caption:"Test de los ojos - item 3",type:"text",key:"4-3"},
@@ -237,8 +239,8 @@ router.route('/users')
 		{caption:"Test de los ojos - item 33",type:"text",key:"4-33"},
 		{caption:"Test de los ojos - item 34",type:"text",key:"4-34"},
 		{caption:"Test de los ojos - item 35",type:"text",key:"4-35"},
-		{caption:"Test de los ojos - item 36",type:"text",key:"4-36"},
-		{caption:"Test de los ojos - item 37",type:"text",key:"4-37"}
+		{caption:"Test de los ojos - item 36",type:"text",key:"4-36"}
+		
 	
 	];
 	//var colCompleted = false;
@@ -250,7 +252,7 @@ router.route('/users')
 				var rA = [];
 				
 				
-				rA.push(user.idUser);
+			//	rA.push(user.idUser);
 				
 				//console.log("Id user: "+user.idUser);
 				
@@ -280,18 +282,20 @@ router.route('/users')
 				
 			
 				
-				
+			dic["code"] = 	user.idUser;
 				
 				colArray.forEach(
 					function(colItem){
 						var storedVal = "";
-						storedVal = dic[colItem.key];
-						rA.push(storedVal);
+						
+						
 						if(dic[colItem.key]!=null&& typeof dic[colItem.key] !='undefined'){
+						storedVal = dic[colItem.key];
 							
 							console.log("key: "+colItem.key+" value: "+storedVal);
 							
 						}
+						rA.push(storedVal);
 						
 						
 						
