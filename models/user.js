@@ -15,7 +15,7 @@ var UserSchema   = new Schema({
     time:Date,
     tests:[{
     	testNo: Number,
-    	totalScore: Number
+    	result: Number
     }],
 	answers:[{
 		testNo: Number,
