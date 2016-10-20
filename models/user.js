@@ -12,6 +12,11 @@ var Schema       = mongoose.Schema;
 
 var UserSchema   = new Schema({
     idUser: Number,
+    time:Date,
+    tests:[{
+    	testNo: Number,
+    	totalScore: Number
+    }],
 	answers:[{
 		testNo: Number,
 		answerNo: Number,
