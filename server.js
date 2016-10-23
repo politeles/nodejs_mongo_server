@@ -39,7 +39,7 @@ var router = express.Router();              // get an instance of the express Ro
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
-    res.json({ message: 'hooray! welcome to our api!' });   
+    res.json({ message: 'hooray! welcome to our api!' });
 });
 
 // more routes for our API will happen here
@@ -48,10 +48,10 @@ router.route('/users')
 
 	.put(function(req,res){
 		console.log("Request data:"+req.body);
-		
+
 		//try to convert to User object:
 		try{
-			
+
 			var user = new User(req.body);
 			console.log("Finding users with id:"+user.idUser);
 			//try to find out the user:
@@ -83,36 +83,36 @@ router.route('/users')
 						console.log("user exist..");
 						res.json({code:"0",userId:req.body.idUser,message:"Error"});//error
 					}
-					
-					
-					
+
+
+
 				});
-			
-			
+
+
 		//user.userId = req.body.userId;
 		//user.answers = req.body.answers;
 		console.log("User values: "+JSON.stringify(user.idUser));
 		//try to save the user:
-	
-			
-			
+
+
+
 		}catch(error){
 			res.json({code:"0",message:"Error: "+error.message});
 		}
-		
-		
+
+
 		// show json  request:
 		//console.log("Request: "+JSON.stringify(user));
-		
-		
-		
+
+
+
 		//save the user:
-		
+
 		//sned back a response:
 		//res.json({message:'Call ok'});
-		
+
 	});
-	
+
 	// route for processing all users to generate excel file:
 	router.route('/process')
 
@@ -202,8 +202,8 @@ router.route('/users')
 		{caption:"Test 3 - item 30",type:"text",key:"1-30"},
 		{caption:"Test 3 - item 31",type:"text",key:"1-31"},
 		{caption:"Test 3 - item 32",type:"text",key:"1-32"},
-		{caption:"Test 3 - item 33",type:"text",key:"1-33"},	
-		{caption:"Test de los ojos - item 0",type:"text",key:"4-0"},	
+		{caption:"Test 3 - item 33",type:"text",key:"1-33"},
+		{caption:"Test de los ojos - item 0",type:"text",key:"4-0"},
 		{caption:"Test de los ojos - item 1",type:"text",key:"4-1"},
 		{caption:"Test de los ojos - item 2",type:"text",key:"4-2"},
 		{caption:"Test de los ojos - item 3",type:"text",key:"4-3"},
@@ -240,8 +240,8 @@ router.route('/users')
 		{caption:"Test de los ojos - item 34",type:"text",key:"4-34"},
 		{caption:"Test de los ojos - item 35",type:"text",key:"4-35"},
 		{caption:"Test de los ojos - item 36",type:"text",key:"4-36"}
-		
-	
+
+
 	];
 	//var colCompleted = false;
 	//colArray.push({caption:'Codigo',type:'number'});
@@ -250,87 +250,87 @@ router.route('/users')
 			if(err==null && users!=null){
 			users.forEach(function(user){
 				var rA = [];
-				
-				
+
+
 			//	rA.push(user.idUser);
-				
+
 				//console.log("Id user: "+user.idUser);
-				
+
 				var dic = {};
-				
+
 					user.answers.forEach(
 					function(ans){
 					//console.log("Answer: "+ans.answerValue);
-					
+
 					if(ans!=null && typeof ans.answerValue != 'undefined'){
 							dic[ans.testNo.toString()+"-"+ans.answerNo.toString()] = ans.answerValue;
 					}
-					
+
 					console.log("Key: "+ans.testNo.toString()+"-"+ans.answerNo.toString());
 					//rA.push(ans.answerValue);
-					
+
 					/*if(!colCompleted){
-						
+
 						var captionValue = "Test: "+ans.testNo+ "Answer: "+ans.answerNo;
 					//	colArray.push({caption:captionValue,type:'text'});
 					}*/
-					
+
 				});
-				
-				
+
+
 			//	colCompleted = true;
-				
-			
-				
+
+
+
 			dic["code"] = 	user.idUser;
-				
+
 				colArray.forEach(
 					function(colItem){
 						var storedVal = "";
-						
-						
+
+
 						if(dic[colItem.key]!=null&& typeof dic[colItem.key] !='undefined'){
 						storedVal = dic[colItem.key];
-							
+
 							console.log("key: "+colItem.key+" value: "+storedVal);
-							
+
 						}
 						rA.push(storedVal);
-						
-						
-						
-					
-					
+
+
+
+
+
 					});
-					
+
 					console.log("Vector rA: ");
 					//before push the array:
 					rA.forEach(function(item){
 						console.log("Item: "+item)
 					});
 			rowArray.push(rA);
-			
+
 	/*		console.log("Showing content");
 		 //show row array:
 		 rowArray.forEach(function(element){
 				element.forEach(function(item){
 					console.log("item: "+item);
 				});
-				
+
 				console.log("showing cols:");
-				
+
 				colArray.forEach(function(item){
 					console.log("Label: "+JSON.stringify(item));
 				});
-				
+
 				*/
-			
+
 		 });
-		 
+
 		  //  conf.stylesXmlFile = "styles.xml";
     conf.cols = colArray;
-	
-	
+
+
 	/*[{
         caption:'Codigo',
         type:'number',
@@ -338,13 +338,13 @@ router.route('/users')
     },{
         caption:'resultados tes1',
         type:'number',
-        
+
     },{
         caption:'bool',
         type:'bool'
     },{
         caption:'number',
-         type:'number'              
+         type:'number'
     }];
 	*/
     conf.rows = rowArray;
@@ -353,32 +353,32 @@ router.route('/users')
         ['pi', new Date(Date.UTC(2013, 4, 1)), true, 3.14],
         ["e", new Date(2012, 4, 1), false, 2.7182],
         ["M&M<>'", new Date(Date.UTC(2013, 6, 9)), false, 1.61803],
-        ["null date", null, true, 1.414]  
+        ["null date", null, true, 1.414]
     ];
 	*/
     var result = nodeExcel.execute(conf);
     res.setHeader('Content-Type', 'application/vnd.openxmlformats');
     res.setHeader("Content-Disposition", "attachment; filename=" + "Report.xlsx");
     res.end(result, 'binary');
-		 
-		 
-		 
+
+
+
 			}
-		 
+
 		 });
-		 
-		 
-		 
-		 
-		 
-		 
-		 
- 
+
+
+
+
+
+
+
+
 	});
-	
-		
-	
-	
+
+
+
+
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
