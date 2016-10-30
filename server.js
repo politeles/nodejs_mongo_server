@@ -379,7 +379,7 @@ router.route('/users')
 
 		  //  conf.stylesXmlFile = "styles.xml";
     conf[0].cols = colArray;
-    conf[1].cols = colArray1;
+    //conf[1].cols = colArray1;
 
 
 	/*[{
@@ -399,7 +399,7 @@ router.route('/users')
     }];
 	*/
     conf[0].rows = rowArray;
-    conf[1].rows = rowArray1;
+    //conf[1].rows = rowArray1;
 	/*
 	[
         ['pi', new Date(Date.UTC(2013, 4, 1)), true, 3.14],
