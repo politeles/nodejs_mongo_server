@@ -408,7 +408,7 @@ router.route('/users')
         ["null date", null, true, 1.414]
     ];
 	*/
-    var result = nodeExcel.execute(conf);
+    var result = nodeExcel.execute(conf[0]);
     res.setHeader('Content-Type', 'application/vnd.openxmlformats');
     res.setHeader("Content-Disposition", "attachment; filename=" + "Report.xlsx");
     res.end(result, 'binary');
