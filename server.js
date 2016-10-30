@@ -117,13 +117,25 @@ router.route('/users')
 	router.route('/process')
 
 	.get(function(req,res){
-		 var conf ={};
+		 var conf = [];
+		 conf.push(new Object());
+		 conf.push(new Object());
 	// 	 1 step:
 	// retrieve all users from db:
 	//Array of rows:
 	var rowArray = [];
+	var rowArray1 = [];
+	var colArray1 = [
+		{caption:"Codigo",type:"number",key:"code"},
+		{caption:"Fecha",type:"datetime",key:"timestamp"},
+		{caption:"Test 1",type:"text",key:"r1"},
+		{caption:"Test 2",type:"text",key:"r2"},
+		{caption:"Test 3",type:"text",key:"r3"},
+		{caption:"Test de los ojos",type:"text",key:"r4"},
+		];
 	var colArray = [
 		{caption:"Codigo",type:"number",key:"code"},
+		{caption:"Fecha",type:"datetime",key:"timestamp"},
 		{caption:"Test 1 - item 1",type:"text",key:"3-1"},
 		{caption:"Test 1 - item 2",type:"text",key:"3-2"},
 		{caption:"Test 1 - item 3",type:"text",key:"3-3"},
@@ -250,6 +262,7 @@ router.route('/users')
 			if(err==null && users!=null){
 			users.forEach(function(user){
 				var rA = [];
+				vat rA1 = [];
 
 
 			//	rA.push(user.idUser);
@@ -257,13 +270,15 @@ router.route('/users')
 				//console.log("Id user: "+user.idUser);
 
 				var dic = {};
+				var dic1 = {};
 
 					user.answers.forEach(
 					function(ans){
 					//console.log("Answer: "+ans.answerValue);
 
 					if(ans!=null && typeof ans.answerValue != 'undefined'){
-							dic[ans.testNo.toString()+"-"+ans.answerNo.toString()] = ans.answerValue;
+						dic[ans.testNo.toString()+"-"+ans.answerNo.toString()] = ans.answerValue;
+
 					}
 
 					console.log("Key: "+ans.testNo.toString()+"-"+ans.answerNo.toString());
@@ -277,12 +292,21 @@ router.route('/users')
 
 				});
 
+					user.tests.forEach(function(ans){
+						if(ans!=null && typeof ans.testNo != 'undefined'){
+							dic["r"+ans.testNo.toString()] = ans.result;
+						}
+					});
+
 
 			//	colCompleted = true;
 
 
 
 			dic["code"] = 	user.idUser;
+			dic["timestamp"] = user.time;
+			dic1["code"] = 	user.idUser;
+			dic1["timestamp"] = user.time;
 
 				colArray.forEach(
 					function(colItem){
@@ -310,6 +334,32 @@ router.route('/users')
 					});
 			rowArray.push(rA);
 
+			colArray1.forEach(
+					function(colItem){
+						var storedVal = "";
+
+
+						if(dic1[colItem.key]!=null&& typeof dic1[colItem.key] !='undefined'){
+						storedVal = dic1[colItem.key];
+
+							console.log("key: "+colItem.key+" value: "+storedVal);
+
+						}
+						rA1.push(storedVal);
+
+
+
+
+
+					});
+
+					console.log("Vector rA: ");
+					//before push the array:
+					rA1.forEach(function(item){
+						console.log("Item: "+item)
+					});
+			rowArray1.push(rA1);
+
 	/*		console.log("Showing content");
 		 //show row array:
 		 rowArray.forEach(function(element){
@@ -328,7 +378,8 @@ router.route('/users')
 		 });
 
 		  //  conf.stylesXmlFile = "styles.xml";
-    conf.cols = colArray;
+    conf[0].cols = colArray;
+    conf[1].cols = colArray1;
 
 
 	/*[{
@@ -347,7 +398,8 @@ router.route('/users')
          type:'number'
     }];
 	*/
-    conf.rows = rowArray;
+    conf[0].rows = rowArray;
+    conf[1].rows = rowArray1;
 	/*
 	[
         ['pi', new Date(Date.UTC(2013, 4, 1)), true, 3.14],
