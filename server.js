@@ -262,7 +262,7 @@ router.route('/users')
 			if(err==null && users!=null){
 			users.forEach(function(user){
 				var rA = [];
-				vat rA1 = [];
+				var rA1 = [];
 
 
 			//	rA.push(user.idUser);
