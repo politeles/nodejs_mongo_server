@@ -281,7 +281,7 @@ router.route('/users')
 
 					}
 
-					console.log("Key: "+ans.testNo.toString()+"-"+ans.answerNo.toString());
+					//console.log("Key: "+ans.testNo.toString()+"-"+ans.answerNo.toString());
 					//rA.push(ans.answerValue);
 
 					/*if(!colCompleted){
@@ -294,7 +294,7 @@ router.route('/users')
 
 					user.tests.forEach(function(ans){
 						if(ans!=null && typeof ans.testNo != 'undefined'){
-							dic["r"+ans.testNo.toString()] = ans.result;
+							dic["r"+ans.testNo.toString()] = ans.result.toString();
 						}
 					});
 
@@ -316,7 +316,7 @@ router.route('/users')
 						if(dic[colItem.key]!=null&& typeof dic[colItem.key] !='undefined'){
 						storedVal = dic[colItem.key];
 
-							console.log("key: "+colItem.key+" value: "+storedVal);
+							//console.log("key: "+colItem.key+" value: "+storedVal);
 
 						}
 						rA.push(storedVal);
@@ -353,11 +353,11 @@ router.route('/users')
 
 					});
 
-					console.log("Vector rA: ");
+					//console.log("Vector rA: ");
 					//before push the array:
-					rA1.forEach(function(item){
-						console.log("Item: "+item)
-					});
+					//rA1.forEach(function(item){
+					//	console.log("Item: "+item)
+					//});
 			rowArray1.push(rA1);
 
 	/*		console.log("Showing content");
