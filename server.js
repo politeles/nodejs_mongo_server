@@ -294,7 +294,8 @@ router.route('/users')
 
 					user.tests.forEach(function(ans){
 						if(ans!=null && typeof ans.testNo != 'undefined'){
-							dic["r"+ans.testNo.toString()] = ans.result.toString();
+							dic1["r"+ans.testNo.toString()] = ans.result.toString();
+							//console.log("store: "+ans.testNo.toString()+" value: ")
 						}
 					});
 
@@ -342,7 +343,7 @@ router.route('/users')
 						if(dic1[colItem.key]!=null&& typeof dic1[colItem.key] !='undefined'){
 						storedVal = dic1[colItem.key];
 
-							console.log("key: "+colItem.key+" value: "+storedVal);
+							//console.log("key: "+colItem.key+" value: "+storedVal);
 
 						}
 						rA1.push(storedVal);
