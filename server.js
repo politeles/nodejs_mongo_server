@@ -327,11 +327,11 @@ router.route('/users')
 
 					});
 
-					console.log("Vector rA: ");
+					//console.log("Vector rA: ");
 					//before push the array:
-					rA.forEach(function(item){
-						console.log("Item: "+item)
-					});
+					//rA.forEach(function(item){
+					//	console.log("Item: "+item)
+					//});
 			rowArray.push(rA);
 
 			colArray1.forEach(
