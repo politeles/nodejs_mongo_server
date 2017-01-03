@@ -148,9 +148,11 @@ def test1Correction(answers):
       value = answer.lower().strip()
       if (ord('a')-ord(value)+1) != test1Answers[index-1]['correctAnswer']:
         itemsFailed += 1
+    else:
+      itemsFailed += 1
   #    print("Answer: {}, Correct: {}").format(value,test1Answers[index-1]['correctAnswer'])
     index += 1
-  print("Test 1: {}").format(test1Answers[index-1]['number']-itemsFailed)
+  return test1Answers[index-1]['number']-itemsFailed
 
 def test4Correction(answers):
   index = 0
@@ -162,7 +164,7 @@ def test4Correction(answers):
     if answer.lower().strip() == test4Answers[index]['correctAnswer'].lower().strip():
       correctAnswers += 1
     index += 1
-  print("Test 4: {}").format(correctAnswers)
+  
   #pp = pprint.PrettyPrinter()
   #pp.pprint(answers)
   return correctAnswers
@@ -180,26 +182,30 @@ def test2Correction(answers,correctAnswers):
 
     index += 1
   #  print("{} , {}, Correct? {}").format(answer,correctAnswers[index-1]['correctAnswer'].lower().strip(),correct)
+  return correctAnswers[index-1]['number']-itemsFailed
+  
+def computeResults(test,test1,test2,test3,test4,test2Answers,test3Answers):
+  if test['testNo'] == 1:
+    return test1Correction(test1)
+  elif test['testNo'] == 2:
+    return test2Correction(test2,test2Answers)
+  elif test['testNo'] == 3:
+    return test2Correction(test3,test3Answers)
+  elif test['testNo'] == 4:
+    return test4Correction(test4)
 
-  print("Test 2: {} = Item techo {} - fallos {}").format(correctAnswers[index-1]['number']-itemsFailed,correctAnswers[index-1]['number'],itemsFailed)
 
 cursor = collection.find()
-bad = set()
-newAnswers = dict()
+force = False
 
 for user in cursor:
-  v = False
   answers = user['answers']
   test1 = [None]*len(test1Answers)
   test2 = [None]*len(test2Answers)
   test3 = [None]*len(test3Answers)
   test4 = [None]*len(test4Answers)
-  index = 0
-  print("Evaluating user: {}").format(user['idUser'])
+  #print("Evaluating user: {}").format(user['idUser'])
   for answer in answers:
-    if user['idUser'] == 253:
-      print("index: ").format(index)
-
 #    print answer
     if answer['testNo'] == 1 and answer['answerNo'] < len(test1):
       test1[answer['answerNo']] = answer['answerValue']    
@@ -214,19 +220,55 @@ for user in cursor:
         test4[answer['answerNo']] = ""
       else:
         test4[answer['answerNo']]= answer['answerValue']
-    index += 1
-  print("user: {} test1: {} test2: {} test3: {} test4: {}").format(user['idUser'],len(test1),len(test2),len(test3),len(test4))
-  test1Correction(test1)
-  test2Correction(test2,test2Answers)
-  test2Correction(test3,test3Answers)
-  test4Correction(test4)
-  if v:
-    pp = pprint.PrettyPrinter()
-    #pp.pprint(test2)
-    print("id user: {}").format(user['idUser'])
-    newAnswers[user['idUser']] = answers
-    #pp.pprint(newAnswers[user['idUser']])
-    #collection.update_one({'_id':user['_id']},{'$set':{'answers':answers}},upsert=False)
+  #Warning: results are numbered with their real test number:
+  if 'tests' not in user.keys():
+    user['tests'] = list()
+    #print("No elements in tests")
+    for i in range(1,5):
+      result = computeResults({'testNo':i},test1,test2,test3,test4,test2Answers,test3Answers)
+      user['tests'].append({'testNo':i, 'result':result})
+  else:
+    #print("elements in tests")
+    computed = [False]*4
+    for test in user['tests']:
+      testn = int(test['testNo'])
+      computed[testn-1] = True
+      #print("already a value in {}").format(testn)
+      if force:
+        #print("Force result")
+        test['result'] = computeResults(test,test1,test2,test3,test4,test2Answers,test3Answers)
+    idx = 1
+    for elem in computed:
+      if not elem:
+        #print("Element {} was not calculated").format(idx)
+        result = computeResults({'testNo':idx},test1,test2,test3,test4,test2Answers,test3Answers)
+        found = False
+        for e in user['tests']:
+          if e['testNo'] == idx:
+            found = True
+            e['result'] = result
+        if not found:
+          user['tests'].append({'testNo':idx, 'result':result})
+      idx += 1
+
+  #before inserting, swap values for test 1 and 3:
+  for i in user['tests']:
+    if i['testNo'] == 1:
+      i['testNo'] = 3
+    elif i['testNo'] == 3:
+      i['testNo'] = 1
+
+  #print("user: {}").format(user['idUser'])
+  #pp = pprint.PrettyPrinter()
+  #pp.pprint(user['tests'])
+  #update rows:
+  collection.update({'idUser': user['idUser']},{'$set': {"tests": user['tests']}},upsert = False)
+
+
+  
+
+
+
 
 
     
@@ -249,4 +291,3 @@ for user in cursor:
 #db.users.update({answers: {$elemMatch:{testNo:1,answerValue: 'answer6'}}},{$set:{"answers.$.answerValue" :'f'}},{multi:true})
 #db.users.update({answers: {$elemMatch:{testNo:1,answerValue: 'answer7'}}},{$set:{"answers.$.answerValue" :'g'}},{multi:true})
 #db.users.update({answers: {$elemMatch:{testNo:1,answerValue: 'answer8'}}},{$set:{"answers.$.answerValue" :'h'}},{multi:true})
-print("test {}").format(d.check("Balanza"))
