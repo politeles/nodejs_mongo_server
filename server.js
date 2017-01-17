@@ -191,7 +191,7 @@ router.route('/new_answer')
 		//try to convert to User object:
 		try{
 
-			var answer = new NewUser(req.body);
+			var answer = new NewAnswer(req.body);
 			console.log("Finding users with id:"+answer.idUser);
 			//try to find out the user:
 			NewAnswer.save(function (err){
