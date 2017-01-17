@@ -11,6 +11,8 @@ var bodyParser = require('body-parser');
 
 // user model from user.js
 var User = require('./models/user.js');
+var NewUser = require('./models/newuser.js');
+var NewAnswer = require('./models/newanswer.js');
 // load configuration:
 var config = require('./config/config.js');
 // configure the connection to db:
@@ -112,6 +114,76 @@ router.route('/users')
 		//res.json({message:'Call ok'});
 
 	});
+
+	router.route('/new_user')
+
+	.put(function(req,res){
+		console.log("Request data:"+req.body);
+
+		//try to convert to User object:
+		try{
+
+			var user = new NewUser(req.body);
+			console.log("Finding users with id:"+user.idUser);
+			//try to find out the user:
+			NewUser
+			.count({
+				idUser: user.idUser
+				})
+				.exec(
+					function(error,results){
+					if(error ==null && results!=null){
+						// query ok:
+						// get the first element of results and update it.
+						console.log("Users: "+results);
+						if(results == 0 ){
+							console.log("no results");
+								user.save(function (err){
+								if(err){
+									//res.send(err);
+									res.json({code:"0",userId:req.body.idUser,message:"User can't be saved"});//failed
+								}else{
+									res.json({code:"1",userId:req.body.idUser,message:"Success"}); //success
+								}
+								});
+						}else{
+							console.log("user exist");
+							res.json({code:"0",userId:req.body.idUser,message:"User already on db"});//duplicate
+						}
+					}else{
+						console.log("user exist..");
+						res.json({code:"0",userId:req.body.idUser,message:"Error"});//error
+					}
+
+
+
+				});
+
+
+		//user.userId = req.body.userId;
+		//user.answers = req.body.answers;
+		console.log("User values: "+JSON.stringify(user.idUser));
+		//try to save the user:
+
+
+
+		}catch(error){
+			res.json({code:"0",message:"Error: "+error.message});
+		}
+
+
+		// show json  request:
+		//console.log("Request: "+JSON.stringify(user));
+
+
+
+		//save the user:
+
+		//sned back a response:
+		//res.json({message:'Call ok'});
+
+	});
+
 
 	// route for processing all users to generate excel file:
 	router.route('/process')

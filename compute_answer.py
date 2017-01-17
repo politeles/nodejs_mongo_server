@@ -126,7 +126,7 @@ test3Answers = [
   {"number":31,"correctAnswer":"ANCLA","set":7},
   {"number":32,"correctAnswer":"ENCHUFE","set":7},
   {"number":33,"correctAnswer":"CALCULADORA","set":7},
-  {"number":34,"correctAnswer":"ANZUELO","set":7},
+  {"number":34,"correctAnswer":"ANZUELO","set":7},if os.path.isdir(root)
   {"number":35,"correctAnswer":"SILLA MONTAR","set":7},
   {"number":36,"correctAnswer":"ESCALERA MECANICA","set":8},
   {"number":37,"correctAnswer":"EMBUDO","set":8},
