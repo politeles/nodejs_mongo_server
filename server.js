@@ -193,7 +193,7 @@ router.route('/users')
 			var answer = new NewAnswer(req.body);
 			console.log("Finding users with id:"+answer.idUser);
 			//try to find out the user:
-			NewAnswer.save(function (err){
+			answer.save(function (err){
 								if(err){
 									//res.send(err);
 									res.json({code:"0",idUser:req.body.idUser,message:"User can't be saved"});//failed
