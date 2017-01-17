@@ -11,6 +11,7 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var NewAnswer   = new Schema({
+		id: Number,
 		idUser: Number,
 		testNo: Number,
 		answerNo: Number,
