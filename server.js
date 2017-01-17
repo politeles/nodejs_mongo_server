@@ -183,8 +183,7 @@ router.route('/users')
 		//res.json({message:'Call ok'});
 
 	});
-router.route('/new_answer')
-
+	router.route('/new_answer')
 	.put(function(req,res){
 		console.log("Request data:"+req.body);
 
@@ -215,6 +214,7 @@ router.route('/new_answer')
 
 
 		}catch(error){
+			console.log(error.message);
 			res.json({code:"0",message:"Error: "+error.message});
 		}
 
