@@ -183,6 +183,53 @@ router.route('/users')
 		//res.json({message:'Call ok'});
 
 	});
+router.route('/new_answer')
+
+	.put(function(req,res){
+		console.log("Request data:"+req.body);
+
+		//try to convert to User object:
+		try{
+
+			var answer = new NewUser(req.body);
+			console.log("Finding users with id:"+answer.idUser);
+			//try to find out the user:
+			NewAnswer.save(function (err){
+								if(err){
+									//res.send(err);
+									res.json({code:"0",idUser:req.body.idUser,message:"User can't be saved"});//failed
+								}else{
+									res.json({code:"1",idUser:req.body.idUser,message:"Success"}); //success
+								}
+								});
+
+
+
+
+
+		//user.userId = req.body.userId;
+		//user.answers = req.body.answers;
+		console.log("User values: "+JSON.stringify(answer.idUser));
+		//try to save the user:
+
+
+
+		}catch(error){
+			res.json({code:"0",message:"Error: "+error.message});
+		}
+
+
+		// show json  request:
+		//console.log("Request: "+JSON.stringify(user));
+
+
+
+		//save the user:
+
+		//sned back a response:
+		//res.json({message:'Call ok'});
+
+	});
 
 
 	// route for processing all users to generate excel file:
