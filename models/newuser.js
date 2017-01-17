@@ -12,7 +12,7 @@ var Schema       = mongoose.Schema;
 
 var NewUserSchema   = new Schema({
     id: Number,
-    time:Date
+    Timestamp:Date
 	
 });
 
