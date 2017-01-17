@@ -128,7 +128,7 @@ router.route('/users')
 			//try to find out the user:
 			NewUser
 			.count({
-				idUser: user.idUser
+				id: user.id
 				})
 				.exec(
 					function(error,results){
@@ -141,18 +141,18 @@ router.route('/users')
 								user.save(function (err){
 								if(err){
 									//res.send(err);
-									res.json({code:"0",userId:req.body.idUser,message:"User can't be saved"});//failed
+									res.json({code:"0",id:req.body.idUser,message:"User can't be saved"});//failed
 								}else{
-									res.json({code:"1",userId:req.body.idUser,message:"Success"}); //success
+									res.json({code:"1",id:req.body.idUser,message:"Success"}); //success
 								}
 								});
 						}else{
 							console.log("user exist");
-							res.json({code:"0",userId:req.body.idUser,message:"User already on db"});//duplicate
+							res.json({code:"0",id:req.body.idUser,message:"User already on db"});//duplicate
 						}
 					}else{
 						console.log("user exist..");
-						res.json({code:"0",userId:req.body.idUser,message:"Error"});//error
+						res.json({code:"0",id:req.body.idUser,message:"Error"});//error
 					}
 
 
@@ -162,7 +162,7 @@ router.route('/users')
 
 		//user.userId = req.body.userId;
 		//user.answers = req.body.answers;
-		console.log("User values: "+JSON.stringify(user.idUser));
+		console.log("User values: "+JSON.stringify(user.id));
 		//try to save the user:
 
 
