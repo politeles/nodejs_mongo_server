@@ -11,7 +11,7 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var NewUserSchema   = new Schema({
-    idUser: Number,
+    id: Number,
     time:Date
 	
 });
