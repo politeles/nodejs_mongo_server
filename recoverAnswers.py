@@ -144,8 +144,10 @@ def generateAnswer(testAnswers,testNo):
 	hh = int(half / 2.0)
 	mu, sigma = half, hh # mean and standard deviation
 	s = np.random.normal(mu, sigma, 1)
-	if s >= len(testAnswers):
+	if s >= len(testAnswers) or testNo == 4:
 		s = len(testAnswers) -1
+	elif s == 0:
+		s = half
 	for i in range(s-1):
 		if len(testAnswers[i]["correctAnswer"]) > 1:
 			c = randint(0,len(testAnswers[i]["correctAnswer"])-1)
