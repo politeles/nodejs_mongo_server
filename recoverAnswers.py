@@ -156,10 +156,12 @@ def generateAnswer(testAnswers,testNo,frequencies):
 	#print("answer range: {}").format(s)
 	#print("Testno: {}").format(testNo)
 	for i in range(s-1):
+		number = i
 		if testNo == 4 or testNo == 2:
 			itemstring = texts + str(i)
 		else:
 			itemstring = texts + str(i+1)
+			number = i+1
 		freq = frequencies[itemstring].value_counts()
 		rg = 3
 		if len(freq) > rg:
@@ -170,6 +172,8 @@ def generateAnswer(testAnswers,testNo,frequencies):
 				else:
 					elements += freq.index[item]*freq[item]
 			val = random.choice(elements)
+			if isinstance(val,(basestring)) and "_" in val:
+				val = val = freq.index[0]
 		else:
 			#just pick the most common value:
 			val = freq.index[0]
@@ -187,7 +191,7 @@ def generateAnswer(testAnswers,testNo,frequencies):
 		elif testNo == 1:
 			n = 3
 
-		answers.append({"testNo":n,"answerNo":i,"answerValue":val})
+		answers.append({"testNo":n,"answerNo":number,"answerValue":val})
 	return answers
 
 def computeFrequencies(file):
