@@ -150,11 +150,11 @@ def generateAnswer(testAnswers,testNo,frequencies):
 	else:
 		texts = "Test " + str(testNo) + " - item "
 	top = 0
-	if s >= len(testAnswers) or testNo == 4:
+	if s >= len(testAnswers) or testNo == 3:
 		s = len(testAnswers) -1
 		top = 1
-	elif testNo == 1 or testNo == 3:
-		s = len(testAnswers)
+	elif testNo == 1 or testNo == 4:
+		s = len(testAnswers)+1
 	elif s <= 0:
 		s = half
 	#print("Length {}").format(s)
@@ -207,14 +207,16 @@ collection = db.users
 
 data = pd.read_excel("file://localhost/home/slimbook/Documentos/sources/nodejs_mongo_server/Report(7).xlsx",sheetname = 'sheet1')
 
-for i in range(50):
-	test3 = generateAnswer(test1Answers,1,data)	
-	test2 = generateAnswer(test2Answers,2,data)
+for i in range(2):
+	#test3 = generateAnswer(test1Answers,1,data)	
+	#print(test3)
+	#test2 = generateAnswer(test2Answers,2,data)
 	test4 = generateAnswer(test4Answers,4,data)
-	test1 = generateAnswer(test3Answers,3,data)
-	answers = test1 + test2 + test3 + test4
-	#print("User : {}").format(i)
-	#print(answers)
-	user = {"idUser":i+636,"answers":answers}
-	result = collection.insert_one(user)
-	print(result)
+	#test1 = generateAnswer(test3Answers,3,data)
+	print(test4)
+	#answers = test1 + test2 + test3 + test4
+	##print("User : {}").format(i)
+	##print(answers)
+	#user = {"idUser":i+636,"answers":answers}
+	#result = collection.insert_one(user)
+	#print(result)
