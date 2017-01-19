@@ -1,10 +1,11 @@
 # coding=utf-8
 from pymongo import MongoClient
 import pprint
+import pandas as pd
 import numpy as np
 import re
 from random import randint
-
+import random
 
 test1Answers = [
   {"number":15,"question":"","answers":6,"correctAnswer":[2],"set":1},
@@ -138,41 +139,68 @@ test3Answers = [
 
 
 
-def generateAnswer(testAnswers,testNo):
+def generateAnswer(testAnswers,testNo,frequencies):
 	answers = []
 	half = int(len(testAnswers) / 2.0)
 	hh = int(half / 2.0)
 	mu, sigma = half, hh # mean and standard deviation
 	s = np.random.normal(mu, sigma, 1)
+	if testNo == 4:
+		texts = "Test de los ojos - item "
+	else:
+		texts = "Test " + str(testNo) + " - item "
 	if s >= len(testAnswers) or testNo == 4:
 		s = len(testAnswers) -1
 	elif s == 0:
 		s = half
 	for i in range(s-1):
-		if len(testAnswers[i]["correctAnswer"]) > 1:
-			c = randint(0,len(testAnswers[i]["correctAnswer"])-1)
+		if testNo == 4 or testNo == 2:
+			itemstring = texts + str(i)
 		else:
-			c = 0
-		val = testAnswers[i]["correctAnswer"][c]
+			itemstring = texts + str(i+1)
+		freq = frequencies[itemstring].value_counts()
+		rg = 3
+		if len(freq) > rg:
+			elements = []
+			for item in range(rg):
+				if isinstance(freq.index[item],(basestring)):
+					elements += [freq.index[item]]*freq[item]
+				else:
+					elements += freq.index[item]*freq[item]
+			val = random.choice(elements)
+		else:
+			#just pick the most common value:
+			val = freq.index[0]
+		#if len(testAnswers[i]["correctAnswer"]) > 1:
+		#	c = randint(0,len(testAnswers[i]["correctAnswer"])-1)
+		#else:
+		#	c = 0
+		#val = testAnswers[i]["correctAnswer"][c]
+
 		if isinstance(val,(basestring)):
 			val = val.lower()
 		answers.append({"testNo":testNo,"answerNo":i,"answerValue":val})
 	return answers
 
+def computeFrequencies(file):
+	data = pd.read_excel(file,sheetname = 'sheet1')
+	#for each answer compute the most requent answers
 
 
 client = MongoClient('172.17.0.9', 27017)
 db = client.users
 collection = db.users
 
-
+data = pd.read_excel("file://localhost/home/slimbook/Documentos/sources/nodejs_mongo_server/Report(7).xlsx",sheetname = 'sheet1')
 
 for i in range(50):
-	test3 = generateAnswer(test3Answers,3)
-	test2 = generateAnswer(test2Answers,2)
-	test4 = generateAnswer(test4Answers,4)
-	test1 = generateAnswer(test1Answers,1)
+	test3 = generateAnswer(test3Answers,1,data)
+	test2 = generateAnswer(test2Answers,2,data)
+	test4 = generateAnswer(test4Answers,4,data)
+	test1 = generateAnswer(test1Answers,3,data)
 	answers = test1 + test2 + test3 + test4
+	#print("User : {}").format(i)
+	#print(answers)
 	user = {"idUser":i+636,"answers":answers}
 	result = collection.insert_one(user)
 	print(result)
