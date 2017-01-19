@@ -149,10 +149,10 @@ def generateAnswer(testAnswers,testNo,frequencies):
 		texts = "Test de los ojos - item "
 	else:
 		texts = "Test " + str(testNo) + " - item "
-	top = 0
-	if s >= len(testAnswers) or testNo == 3:
+	if testNo == 3:
+		s = len(testAnswers)
+	elif s >= len(testAnswers):
 		s = len(testAnswers) -1
-		top = 1
 	elif testNo == 1 or testNo == 4:
 		s = len(testAnswers)+1
 	elif s <= 0:
@@ -213,7 +213,7 @@ for i in range(50):
 	test2 = generateAnswer(test2Answers,2,data)
 	test4 = generateAnswer(test4Answers,4,data)
 	test1 = generateAnswer(test3Answers,3,data)
-	#print(test4)
+	#print(test1)
 	answers = test1 + test2 + test3 + test4
 	#print("User : {}").format(i)
 	#print(answers)
