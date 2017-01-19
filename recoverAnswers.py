@@ -181,7 +181,13 @@ def generateAnswer(testAnswers,testNo,frequencies):
 
 		if isinstance(val,(basestring)):
 			val = val.lower()
-		answers.append({"testNo":testNo,"answerNo":i,"answerValue":val})
+		n = testNo
+		if testNo == 3:
+			n = 1
+		elif testNo == 1:
+			n = 3
+
+		answers.append({"testNo":n,"answerNo":i,"answerValue":val})
 	return answers
 
 def computeFrequencies(file):
