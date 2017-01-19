@@ -149,9 +149,9 @@ def generateAnswer(testAnswers,testNo,frequencies):
 		texts = "Test de los ojos - item "
 	else:
 		texts = "Test " + str(testNo) + " - item "
-	if s >= len(testAnswers) or testNo == 4:
+	if s >= len(testAnswers) or testNo == 4 or testNo == 1:
 		s = len(testAnswers) -1
-	elif s == 0:
+	elif s <= 0:
 		s = half
 	#print("answer range: {}").format(s)
 	#print("Testno: {}").format(testNo)
@@ -193,10 +193,6 @@ def generateAnswer(testAnswers,testNo,frequencies):
 
 		answers.append({"testNo":n,"answerNo":number,"answerValue":val})
 	return answers
-
-def computeFrequencies(file):
-	data = pd.read_excel(file,sheetname = 'sheet1')
-	#for each answer compute the most requent answers
 
 
 client = MongoClient('172.17.0.9', 27017)
