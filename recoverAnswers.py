@@ -151,9 +151,7 @@ def generateAnswer(testAnswers,testNo,frequencies):
 		texts = "Test " + str(testNo) + " - item "
 	if testNo == 3:
 		s = len(testAnswers)
-	elif s >= len(testAnswers):
-		s = len(testAnswers) -1
-	elif testNo == 1 or testNo == 4:
+	elif testNo == 1 or testNo == 4 or testNo == 2:
 		s = len(testAnswers)+1
 	elif s <= 0:
 		s = half
@@ -169,6 +167,11 @@ def generateAnswer(testAnswers,testNo,frequencies):
 			itemstring = texts + str(i+1)
 			number = i+1
 		freq = frequencies[itemstring].value_counts()
+		mask = freq > 5
+		freq2 = freq[mask]
+		if len(freq2 > 0):
+			freq = freq2
+		
 		rg = 3
 		if len(freq) > rg:
 			elements = []
@@ -213,7 +216,7 @@ for i in range(50):
 	test2 = generateAnswer(test2Answers,2,data)
 	test4 = generateAnswer(test4Answers,4,data)
 	test1 = generateAnswer(test3Answers,3,data)
-	#print(test1)
+	#print(test2)
 	answers = test1 + test2 + test3 + test4
 	#print("User : {}").format(i)
 	#print(answers)
