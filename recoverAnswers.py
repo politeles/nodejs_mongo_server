@@ -7,7 +7,7 @@ import re
 from random import randint
 import random
 
-test1Answers = [
+test3Answers = [
   {"number":15,"question":"","answers":6,"correctAnswer":[2],"set":1},
   {"number":16,"question":"","answers":6,"correctAnswer":[1],"set":1},
   {"number":17,"question":"","answers":8,"correctAnswer":[8],"set":1},
@@ -119,7 +119,7 @@ test2Answers = [
   {"number":37,"question":"Apasionadamente aferrado a sus ideas","answers":"___A_I_O","correctAnswer":["FANATICO"],"set":7}
   ]
 
-test3Answers = [
+test1Answers = [
   {"number":31,"correctAnswer":["ANCLA","HANCLA"],"set":7},
   {"number":32,"correctAnswer":["ENCHUFE","NCHUFE"],"set":7},
   {"number":33,"correctAnswer":["CALCULADORA","CALCU"],"set":7},
@@ -144,7 +144,7 @@ def generateAnswer(testAnswers,testNo,frequencies):
 	half = int(len(testAnswers) / 2.0)
 	hh = int(half / 2.0)
 	mu, sigma = half, hh # mean and standard deviation
-	s = np.random.normal(mu, sigma, 1)
+	s = int(np.random.normal(mu, sigma, 1))
 	if testNo == 4:
 		texts = "Test de los ojos - item "
 	else:
@@ -153,6 +153,8 @@ def generateAnswer(testAnswers,testNo,frequencies):
 		s = len(testAnswers) -1
 	elif s == 0:
 		s = half
+	#print("answer range: {}").format(s)
+	#print("Testno: {}").format(testNo)
 	for i in range(s-1):
 		if testNo == 4 or testNo == 2:
 			itemstring = texts + str(i)
@@ -194,10 +196,10 @@ collection = db.users
 data = pd.read_excel("file://localhost/home/slimbook/Documentos/sources/nodejs_mongo_server/Report(7).xlsx",sheetname = 'sheet1')
 
 for i in range(50):
-	test3 = generateAnswer(test3Answers,1,data)
+	test3 = generateAnswer(test1Answers,1,data)	
 	test2 = generateAnswer(test2Answers,2,data)
 	test4 = generateAnswer(test4Answers,4,data)
-	test1 = generateAnswer(test1Answers,3,data)
+	test1 = generateAnswer(test3Answers,3,data)
 	answers = test1 + test2 + test3 + test4
 	#print("User : {}").format(i)
 	#print(answers)
