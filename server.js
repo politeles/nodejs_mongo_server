@@ -413,7 +413,7 @@ router.route('/users')
 				});
 
 					user.tests.forEach(function(ans){
-						if(ans!=null && typeof ans.testNo != 'undefined'){
+						if(ans!=null && typeof ans.testNo != 'undefined' && ans.result!=null && typeof ans.result !='undefined'){
 							dic1["r"+ans.testNo.toString()] = ans.result.toString();
 							//console.log("store: "+ans.testNo.toString()+" value: ")
 						}
