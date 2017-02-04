@@ -7,8 +7,9 @@ f = open('config.yaml')
 
 config = yaml.safe_load(f)
 f.close()
-
-client = MongoClient('172.17.0.9', 27017)
+pp = pprint.PrettyPrinter()
+pp.pprint(config)
+client = MongoClient(config['mongo']['host'],config['mongo']['port'])
 db = client.users
 collection = db.newanswers
 # 	answers:[{
