@@ -6,6 +6,7 @@ import numpy as np
 import re
 from random import randint
 import random
+import yaml
 
 test3Answers = [
   {"number":15,"question":"","answers":6,"correctAnswer":[2],"set":1},
@@ -138,6 +139,11 @@ test1Answers = [
   ]
 
 
+f = open('config.yaml')
+
+config = yaml.safe_load(f)
+f.close()
+
 
 def generateAnswer(testAnswers,testNo,frequencies):
 	answers = []
@@ -204,11 +210,11 @@ def generateAnswer(testAnswers,testNo,frequencies):
 	return answers
 
 
-client = MongoClient('172.17.0.9', 27017)
+client = MongoClient(config['mongo']['host'],config['mongo']['port'])
 db = client.users
 collection = db.users
 
-data = pd.read_excel("file://localhost/home/slimbook/Documentos/sources/nodejs_mongo_server/Report(7).xlsx",sheetname = 'sheet1')
+data = pd.read_excel(config['excel']['filename'],sheetname = 'sheet1')
 
 for i in range(50):
 	test3 = generateAnswer(test1Answers,1,data)	
