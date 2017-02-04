@@ -377,7 +377,7 @@ router.route('/users')
 	];
 	//var colCompleted = false;
 	//colArray.push({caption:'Codigo',type:'number'});
-		User.find({},function(err,users){
+		User.find({}).sort({'iduser':1}).exec(function(err,users){
 		//	console.log("All users:"+JSON.stringify(users));
 			if(err==null && users!=null){
 			users.forEach(function(user){
