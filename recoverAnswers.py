@@ -215,17 +215,38 @@ db = client.users
 collection = db.users
 
 data = pd.read_excel(config['excel']['filename'],sheetname = 'sheet1')
+def insert(num,startIdUser):
+	for i in range(num):
+		test3 = generateAnswer(test1Answers,1,data)	
+		#print(test3)
+		test2 = generateAnswer(test2Answers,2,data)
+		test4 = generateAnswer(test4Answers,4,data)
+		test1 = generateAnswer(test3Answers,3,data)
+		#print(test2)
+		answers = test1 + test2 + test3 + test4
+		#print("User : {}").format(i)
+		#print(answers)
+		user = {"idUser":i+startIdUser,"answers":answers}
+		result = collection.insert_one(user)
+		print(result)
 
-for i in range(50):
-	test3 = generateAnswer(test1Answers,1,data)	
-	#print(test3)
-	test2 = generateAnswer(test2Answers,2,data)
-	test4 = generateAnswer(test4Answers,4,data)
-	test1 = generateAnswer(test3Answers,3,data)
-	#print(test2)
-	answers = test1 + test2 + test3 + test4
-	#print("User : {}").format(i)
-	#print(answers)
-	user = {"idUser":i+636,"answers":answers}
-	result = collection.insert_one(user)
-	print(result)
+for i in range(2):
+#       test3 = generateAnswer(test1Answers,1,data)     
+        #print(test3)
+#       test2 = generateAnswer(test2Answers,2,data)
+        test4 = generateAnswer(test4Answers,4,data)
+#       test1 = generateAnswer(test3Answers,3,data)
+        #print(test2)
+#       answers = test1 + test2 + test3 + test4
+        answers = test4[10:]
+        print(answers)
+
+        #print("User : {}").format(i)
+        #print(answers)
+#       user = {"idUser":i+636,"answers":answers}
+#       user = {"idUser":i+688,"answers":answers}
+#       result = collection.insert_one(user)
+        for j,ans in enumerate(answers):
+        	print("i",j,"ans:",ans)
+                result = collection.update({'idUser':i+688},{'$push':{'answers':{'testNo':4,'answerValue':ans,'answerNo':10+j}}})
+        print(result)
