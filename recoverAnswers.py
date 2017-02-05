@@ -230,7 +230,7 @@ def insert(num,startIdUser):
 		result = collection.insert_one(user)
 		print(result)
 
-for i in range(2):
+for i in range(15):
 #       test3 = generateAnswer(test1Answers,1,data)     
         #print(test3)
 #       test2 = generateAnswer(test2Answers,2,data)
@@ -248,5 +248,5 @@ for i in range(2):
 #       result = collection.insert_one(user)
         for j,ans in enumerate(answers):
         	print("i",j,"ans:",ans)
-                result = collection.update({'idUser':i+688},{'$push':{'answers':{'testNo':4,'answerValue':ans,'answerNo':10+j}}})
+                result = collection.update({'idUser':i+688},{'$push':{'answers':{'testNo':4,'answerValue':ans['answerValue'],'answerNo':10+j}}})
         print(result)
