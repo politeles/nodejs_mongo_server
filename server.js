@@ -335,6 +335,7 @@ router.route('/users')
 		{caption:"Test 3 - item 31",type:"text",key:"1-31"},
 		{caption:"Test 3 - item 32",type:"text",key:"1-32"},
 		{caption:"Test 3 - item 33",type:"text",key:"1-33"},
+		{caption:"Test 3 - item 34",type:"text",key:"1-34"},
 		{caption:"Test de los ojos - item 0",type:"text",key:"4-0"},
 		{caption:"Test de los ojos - item 1",type:"text",key:"4-1"},
 		{caption:"Test de los ojos - item 2",type:"text",key:"4-2"},
